@@ -5,22 +5,18 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: eescalei <eescalei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/08 07:44:49 by eescalei          #+#    #+#             */
-/*   Updated: 2024/01/08 11:26:49 by eescalei         ###   ########.fr       */
+/*   Created: 2024/01/11 22:11:31 by eescalei          #+#    #+#             */
+/*   Updated: 2024/01/11 22:11:38 by eescalei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// # include "../inc/pipex.h"
+# include "../inc/pipex.h"
 # include <stdio.h>
 
 
 int	main(int ac, char **argv)
 {
-	char *string = "ola";
+	t_pipe	pipe;
 	
-	printf("%c",string[0]);
-	printf("%c",string[1]);
-	printf("%c",string[2]);
-
 	return 0;
 }

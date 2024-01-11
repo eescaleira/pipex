@@ -6,7 +6,7 @@
 #    By: eescalei <eescalei@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/08 07:48:01 by eescalei          #+#    #+#              #
-#    Updated: 2024/01/08 08:07:15 by eescalei         ###   ########.fr        #
+#    Updated: 2024/01/11 22:18:37 by eescalei         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,9 +14,9 @@ NAME = pipex
 CC = cc -Wall -Wextra -Werror
 LIB_PATH = ./inc/my_library/
 
-SRC = 
+SRC = src/pipex.c
 
-OBJ = ${SRC: .c=.o}
+OBJ = ${SRC:.c=.o}
 
 all:	${NAME}
 
@@ -26,10 +26,10 @@ ${NAME}:	${OBJ}
 
 clean:
 	rm -f $(OBJ)
-	make fclean -C ./my_library/
+	make fclean -C ${LIB_PATH}
 
 fclean: clean
 	rm -f $(NAME)
 
 re: fclean all
-#.SILENT:
+.SILENT:
