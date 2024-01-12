@@ -6,7 +6,7 @@
 /*   By: eescalei <eescalei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 07:45:18 by eescalei          #+#    #+#             */
-/*   Updated: 2024/01/11 22:12:44 by eescalei         ###   ########.fr       */
+/*   Updated: 2024/01/12 01:00:00 by eescalei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,8 @@ typedef struct s_pipex
 	int	id;
 	
 }	t_pipe;
+
+int		main(int ac, char **argv);
+void	create_pipe(t_pipe *pipex);
 
 #endif

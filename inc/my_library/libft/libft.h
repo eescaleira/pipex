@@ -6,7 +6,7 @@
 /*   By: eescalei <eescalei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 15:32:40 by eescalei          #+#    #+#             */
-/*   Updated: 2023/05/01 17:05:49 by eescalei         ###   ########.fr       */
+/*   Updated: 2024/01/12 00:51:11 by eescalei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,13 @@
 # include <ctype.h>
 # include <string.h>
 # include <stdio.h>
+# include <fcntl.h>
+# include <errno.h>
+# include <sys/wait.h>
+# include <sys/types.h>
+# include <sys/stat.h>
+# include <sys/uio.h>
+# include <sys/stat.h>
 
 typedef struct s_list
 {
