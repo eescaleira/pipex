@@ -1,31 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncmp.c                                       :+:      :+:    :+:   */
+/*   get_path.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eescalei <eescalei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/18 17:37:43 by eescalei          #+#    #+#             */
-/*   Updated: 2024/01/14 23:58:57 by eescalei         ###   ########.fr       */
+/*   Created: 2024/01/15 00:00:49 by eescalei          #+#    #+#             */
+/*   Updated: 2024/01/15 00:04:06 by eescalei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_strncmp(char *s1, const char *s2, int n)
-{
-	unsigned char	*str1;
-	unsigned char	*str2;
+# include "../inc/pipex.h"
 
-	str1 = (unsigned char *)s1;
-	str2 = (unsigned char *)s2;
-	if (n < 0)
-		return (-1);
-	while (n > 0 && *str1 == *str2 && *str1 != '\0' && *str2 != '\0')
+void get_path(t_pipe *pipex, char **envp)
+{
+	int	i;
+	
+	i = 0;
+	while(envp[i] != NULL)
 	{
-		str1++;
-		str2++;
-		n--;
+		if(ft_strncmp(envp[i], "PATH=", 5) == 0)
+		{
+			pipex->path = ft_split(envp[i] + 5, ':');
+			// printf("path: %s\n", pipex->path);
+			break ;
+		}
+		i++;
 	}
-	if (n == 0)
-		return (0);
-	return (*str1 - *str2);
+	if(pipex->path == NULL)
+	{
+		ft_printf("Error getting path\n");
+		exit(1);
+	}
 }

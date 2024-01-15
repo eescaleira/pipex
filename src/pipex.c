@@ -6,7 +6,7 @@
 /*   By: eescalei <eescalei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 22:11:31 by eescalei          #+#    #+#             */
-/*   Updated: 2024/01/12 19:02:43 by eescalei         ###   ########.fr       */
+/*   Updated: 2024/01/15 00:01:07 by eescalei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,24 +29,34 @@ void get_cmds(t_pipe *pipex, int ac, char **argv)
 	pipex->cmd[i]->arg = NULL;
 }
 
-void create_pipe(t_pipe *pipex)
+void create_pipe(t_pipe *pipex) // exit (0) is not an apropriate way to exit
 {
 	if (pipe(pipex->fd) == -1)
 	{
 		ft_printf("Error creating pipe\n");
 		exit(1);
 	}
+	
 }
 
-int	main(int ac, char **argv, char **env)
+
+int	main(int ac, char **argv, char **envp)
 {
 	t_pipe	pipex;
-	if(env == NULL || argv == NULL)
+	if(envp == NULL || argv == NULL || ac != 5)
 	{
 		ft_printf("Error getting env\n");
 		exit(1);
 	}
-	create_pipe(&pipex);
+	get_path(&pipex, envp);
 	get_cmds(&pipex, ac, argv);
+	create_pipe(&pipex);
+	pipex.pid = fork();
+	if (pipex.pid == -1)
+	{
+		ft_printf("Error creating fork\n");
+		exit(1);
+	}
+
 	return 0;
 }
