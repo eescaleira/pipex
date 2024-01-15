@@ -6,7 +6,7 @@
 /*   By: eescalei <eescalei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 22:11:31 by eescalei          #+#    #+#             */
-/*   Updated: 2024/01/15 00:01:07 by eescalei         ###   ########.fr       */
+/*   Updated: 2024/01/15 00:37:58 by eescalei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,7 @@ void create_pipe(t_pipe *pipex) // exit (0) is not an apropriate way to exit
 		ft_printf("Error creating pipe\n");
 		exit(1);
 	}
-	
 }
-
 
 int	main(int ac, char **argv, char **envp)
 {
