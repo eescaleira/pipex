@@ -6,7 +6,7 @@
 /*   By: eescalei <eescalei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 15:28:40 by eescalei          #+#    #+#             */
-/*   Updated: 2024/01/15 00:38:28 by eescalei         ###   ########.fr       */
+/*   Updated: 2023/05/02 17:06:23 by eescalei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	if (len > ft_strlen(s) - start)
 		len = ft_strlen(s) - start;
 	result = malloc ((len +1) * sizeof(char));
-	if (result)
+	if (result == NULL)
 		return (NULL);
 	while (j < len)
 	{
