@@ -6,7 +6,7 @@
 /*   By: eescalei <eescalei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 22:11:31 by eescalei          #+#    #+#             */
-/*   Updated: 2024/01/15 12:22:53 by eescalei         ###   ########.fr       */
+/*   Updated: 2024/01/20 19:03:27 by eescalei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void get_cmds(t_pipe *pipex, int ac, char **argv)
 	}
 	pipex->cmd[i] = malloc(sizeof(t_cmd));
 	pipex->cmd[i]->arg = NULL;
+	separate_flags(pipex);
 }
 
 void create_pipe(t_pipe *pipex) // exit (0) is not an apropriate way to exit
@@ -47,7 +48,7 @@ int	main(int ac, char **argv, char **envp)
 		exit(1);
 	}
 	get_path(&pipex, envp);
-	// get_cmds(&pipex, ac, argv);
+	get_cmds(&pipex, ac, argv);
 	// create_pipe(&pipex);
 	// pipex.pid = fork();
 	// if (pipex.pid == -1)

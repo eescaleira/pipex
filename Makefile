@@ -6,16 +6,18 @@
 #    By: eescalei <eescalei@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/08 07:48:01 by eescalei          #+#    #+#              #
-#    Updated: 2024/01/15 00:02:59 by eescalei         ###   ########.fr        #
+#    Updated: 2024/01/20 18:59:28 by eescalei         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = pipex
-CC = cc -Wall -Wextra -Werror
+CC = cc #-Wall -Wextra -Werror
 LIB_PATH = ./inc/my_library/
 
 SRC = src/pipex.c \
-		src/get_path.c
+		src/get_path.c \
+		src/ft_split.c \
+		src/cmds_funcs.c
 
 OBJ = ${SRC:.c=.o}
 
