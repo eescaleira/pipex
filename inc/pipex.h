@@ -6,7 +6,7 @@
 /*   By: eescalei <eescalei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 07:45:18 by eescalei          #+#    #+#             */
-/*   Updated: 2024/01/20 18:51:59 by eescalei         ###   ########.fr       */
+/*   Updated: 2024/01/21 17:28:06 by eescalei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,6 @@ void	create_pipe(t_pipe *pipex);
 void	get_cmds(t_pipe *pipex, int ac, char **argv);
 void	get_path(t_pipe *pipex, char **envp);
 int		ft_splitt(char ***strs , char *s, char c);
+void 	separate_flags(t_pipe *pipex);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: eescalei <eescalei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 22:11:31 by eescalei          #+#    #+#             */
-/*   Updated: 2024/01/20 19:03:27 by eescalei         ###   ########.fr       */
+/*   Updated: 2024/01/21 18:22:21 by eescalei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 
 void get_cmds(t_pipe *pipex, int ac, char **argv)
 {
-	int i = 0;
+	int i;
 	
+	i = 0;
 	pipex->cmd = malloc(sizeof(t_cmd) * (ac - 2));
 	while (i <= ac - 4)
 	{
@@ -28,6 +29,21 @@ void get_cmds(t_pipe *pipex, int ac, char **argv)
 	pipex->cmd[i] = malloc(sizeof(t_cmd));
 	pipex->cmd[i]->arg = NULL;
 	separate_flags(pipex);
+	i = 0;
+	while(pipex->cmd[i]->arg != NULL)
+	{
+		int j = 0;
+		// ft_printf("cmd: %s\n", pipex->cmd[i]->main_cmd);
+		if(pipex->cmd[i]->flags != NULL)
+		{
+			while(pipex->cmd[i]->flags[j] != NULL)
+			{
+				// ft_printf("flag: %s\n", pipex->cmd[i]->flags[j]);
+				j++;
+			}
+		}
+		i++;
+	}
 }
 
 void create_pipe(t_pipe *pipex) // exit (0) is not an apropriate way to exit
