@@ -6,7 +6,7 @@
 /*   By: eescalei <eescalei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 07:45:18 by eescalei          #+#    #+#             */
-/*   Updated: 2024/01/21 17:28:06 by eescalei         ###   ########.fr       */
+/*   Updated: 2024/01/24 23:09:15 by eescalei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,28 +15,25 @@
 
 # include "./my_library/lib.h"
 
-typedef struct s_cmd
-{
-	char	*arg;
-	char	*main_cmd;
-	char	**flags;
-}	t_cmd;
-
-
 typedef struct s_pipex
 {
-	int		fd[2];
-	int		pid;
+	int		fdin;
+	int		fdout;
+	pid_t 	pid1;
+	pid_t	pid2;
+	int		pipe[2];
 	char	**path;
-	t_cmd 	**cmd;
+	char 	**cmd;
+	char	*cmd_path;
 	
 }	t_pipe;
 
 int		main(int ac, char **argv, char **envp);
 void	create_pipe(t_pipe *pipex);
-void	get_cmds(t_pipe *pipex, int ac, char **argv);
+void	get_cmds(t_pipe *pipex, char *cmd);
 void	get_path(t_pipe *pipex, char **envp);
 int		ft_splitt(char ***strs , char *s, char c);
-void 	separate_flags(t_pipe *pipex);
+void	process_1(t_pipe *pipex, char *cmd, char **envp);
+void	process_2(t_pipe *pipex, char *cmd, char **envp);
 
 #endif
