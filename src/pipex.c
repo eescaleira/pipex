@@ -6,7 +6,7 @@
 /*   By: eescalei <eescalei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 22:11:31 by eescalei          #+#    #+#             */
-/*   Updated: 2024/01/24 23:23:02 by eescalei         ###   ########.fr       */
+/*   Updated: 2024/01/25 12:32:55 by eescalei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void get_path(t_pipe *pipex, char **envp)
 	}
 	if(pipex->path == NULL)
 	{
-		ft_printf("Error getting path\n");
+		print_error(pipex, "Error getting path\n");
 		exit(1);
 	}
 }
@@ -49,6 +49,8 @@ void create_descriptors(t_pipe *pipex, char **argv, char **envp, int ac)
 	if (pipe(pipex->pipe) < 0)
 	{
 		ft_printf("Error creating pipe\n");
+		close(pipex->fdin);
+		close(pipex->fdout);
 		exit(3);
 	}
 }
@@ -61,23 +63,16 @@ int	main(int ac, char **argv, char **envp)
 	get_path(&pipex, envp);
 	pipex.pid1 = fork();
 	if(pipex.pid1 == -1)
-	{
-		ft_printf("Error creating fork\n");
-		exit(1);
-	}
+		print_error(&pipex, "Error creating fork\n");
 	if(pipex.pid1 == 0)
-	{
 		process_1(&pipex, argv[2], envp);
-	}	
 	pipex.pid2 = fork();
 	if(pipex.pid2 == -1)
-	{
-		ft_printf("Error creating fork\n");
-		exit(1);
-	}
+		print_error(&pipex, "Error creating fork\n");
 	if(pipex.pid2 == 0)
 		process_2(&pipex, argv[3], envp);
 	wait(NULL); // tentar por wait pid 
+	free_path(pipex.path);
 	// check retuned errors from execves
 	return 0;
 }

@@ -6,7 +6,7 @@
 #    By: eescalei <eescalei@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/08 07:48:01 by eescalei          #+#    #+#              #
-#    Updated: 2024/01/24 22:29:02 by eescalei         ###   ########.fr        #
+#    Updated: 2024/01/25 12:17:05 by eescalei         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,8 @@ LIB_PATH = ./inc/my_library/
 
 SRC = src/pipex.c \
 		src/processes.c \
-		src/ft_split.c 
+		src/ft_split.c \
+		src/free_errors.c
 
 OBJ = ${SRC:.c=.o}
 
