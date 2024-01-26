@@ -6,7 +6,7 @@
 #    By: eescalei <eescalei@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/08 07:48:01 by eescalei          #+#    #+#              #
-#    Updated: 2024/01/25 12:17:05 by eescalei         ###   ########.fr        #
+#    Updated: 2024/01/26 07:57:46 by eescalei         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,13 +19,23 @@ SRC = src/pipex.c \
 		src/ft_split.c \
 		src/free_errors.c
 
-OBJ = ${SRC:.c=.o}
+SRC_BONUS = src/pipex.c \
+				src_bonus/processes.c \
+				src_bonus/ft_split.c \
+				src_bonus/free_errors.c
 
-all:	${NAME}
+OBJ = ${SRC:.c=.o}
+OBJ_BONUS = ${SRC_BONUS:.c=.o}
+
+all:	${NAME} 
 
 ${NAME}:	${OBJ}
 	make -C ./inc/my_library/
 	${CC} ${OBJ} ./inc/my_library/get_next_line/get_next_line.a ./inc/my_library/ft_printf/libftprintf.a ./inc/my_library/libft/libft.a -o ${NAME}
+
+bonus:	${OBJ_BONUS}
+	make -C ./inc/my_library/
+	${CC} ${OBJ_BONUS} ./inc/my_library/get_next_line/get_next_line.a ./inc/my_library/ft_printf/libftprintf.a ./inc/my_library/libft/libft.a -o ${NAME}
 
 clean:
 	rm -f $(OBJ)
