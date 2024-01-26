@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   pipex_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eescalei <eescalei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 07:45:18 by eescalei          #+#    #+#             */
-/*   Updated: 2024/01/26 17:17:50 by eescalei         ###   ########.fr       */
+/*   Updated: 2024/01/26 17:27:01 by eescalei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,13 @@ typedef struct s_pipex
 {
 	int		fdin;
 	int		fdout;
-	pid_t 	pid1;
-	pid_t	pid2;
-	int		pipe[2];
+	pid_t 	*pid;
+	int		pipeFC[2];
+	int		pipeCF[2];
 	char	**path;
 	char 	**cmd;
 	char	*cmd_path;
+	int		i;
 	
 }	t_pipe;
 

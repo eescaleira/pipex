@@ -6,7 +6,7 @@
 /*   By: eescalei <eescalei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 00:00:49 by eescalei          #+#    #+#             */
-/*   Updated: 2024/01/25 13:02:57 by eescalei         ###   ########.fr       */
+/*   Updated: 2024/01/26 17:30:51 by eescalei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,4 +62,12 @@ void process_2(t_pipe *pipex, char *cmd, char **envp)
 		print_error(pipex, "Error: command not found\n");
 	get_cmds(pipex, cmd);
 	execve(pipex->cmd_path, pipex->cmd, envp);
+}
+
+void	middle_processes(t_pipe *pipex, char **argv, char **envp)
+{
+	int	i;
+	i = 0;
+	while(argv[i] != NULL)
+		i++;
 }

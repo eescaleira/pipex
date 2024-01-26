@@ -6,7 +6,7 @@
 #    By: eescalei <eescalei@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/08 07:48:01 by eescalei          #+#    #+#              #
-#    Updated: 2024/01/26 07:57:46 by eescalei         ###   ########.fr        #
+#    Updated: 2024/01/26 11:47:24 by eescalei         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ SRC = src/pipex.c \
 		src/ft_split.c \
 		src/free_errors.c
 
-SRC_BONUS = src/pipex.c \
+SRC_BONUS = src_bonus/pipex.c \
 				src_bonus/processes.c \
 				src_bonus/ft_split.c \
 				src_bonus/free_errors.c
@@ -45,4 +45,4 @@ fclean: clean
 	rm -f $(NAME)
 
 re: fclean all
-.SILENT:
+#.SILENT:
