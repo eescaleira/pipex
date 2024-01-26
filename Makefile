@@ -6,7 +6,7 @@
 #    By: eescalei <eescalei@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/08 07:48:01 by eescalei          #+#    #+#              #
-#    Updated: 2024/01/26 11:47:24 by eescalei         ###   ########.fr        #
+#    Updated: 2024/01/26 20:44:14 by eescalei         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,6 +39,7 @@ bonus:	${OBJ_BONUS}
 
 clean:
 	rm -f $(OBJ)
+	rm -f $(OBJ_BONUS)
 	make fclean -C ${LIB_PATH}
 
 fclean: clean

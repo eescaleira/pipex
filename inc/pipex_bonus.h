@@ -6,7 +6,7 @@
 /*   By: eescalei <eescalei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 07:45:18 by eescalei          #+#    #+#             */
-/*   Updated: 2024/01/26 17:27:01 by eescalei         ###   ########.fr       */
+/*   Updated: 2024/01/26 20:10:57 by eescalei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ typedef struct s_pipex
 	int		fdin;
 	int		fdout;
 	pid_t 	*pid;
-	int		pipeFC[2];
-	int		pipeCF[2];
+	int		pipeR[2];
+	int		pipeW[2];
 	char	**path;
 	char 	**cmd;
 	char	*cmd_path;
@@ -39,5 +39,7 @@ void	process_2(t_pipe *pipex, char *cmd, char **envp);
 void	free_path(char **path);
 void	print_error(t_pipe *pipex, char *str);
 void	close_t(t_pipe *pipex);
+void	middle_processes(t_pipe *pipex, char **argv, char **envp, int cmd_count);
+
 
 #endif

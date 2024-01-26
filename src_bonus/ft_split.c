@@ -6,11 +6,11 @@
 /*   By: eescalei <eescalei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 18:20:45 by eescalei          #+#    #+#             */
-/*   Updated: 2024/01/25 12:22:28 by eescalei         ###   ########.fr       */
+/*   Updated: 2024/01/26 19:45:43 by eescalei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/pipex.h"
+#include "../inc/pipex_bonus.h"
 
 int ft_substrr(char ***str, char *s, int start, int len, int j)
 {
