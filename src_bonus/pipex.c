@@ -6,7 +6,7 @@
 /*   By: eescalei <eescalei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 22:11:31 by eescalei          #+#    #+#             */
-/*   Updated: 2024/01/26 20:28:02 by eescalei         ###   ########.fr       */
+/*   Updated: 2024/01/27 20:59:13 by eescalei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,10 @@ int	main(int ac, char **argv, char **envp)
 	if(pipex.pid[0] == -1)
 		print_error(&pipex, "Error creating fork\n");
 	if(pipex.pid[0] == 0)
+	{
+		printf("Iniciating process_1");
 		process_1(&pipex, argv[2], envp);
+	}
 	middle_processes(&pipex, argv + 2, envp, (ac - 4));
 	wait(NULL); // tentar por wait pid 
 	free_path(pipex.path);
