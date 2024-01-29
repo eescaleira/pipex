@@ -6,7 +6,7 @@
 /*   By: eescalei <eescalei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 00:00:49 by eescalei          #+#    #+#             */
-/*   Updated: 2024/01/27 21:51:27 by eescalei         ###   ########.fr       */
+/*   Updated: 2024/01/29 19:30:30 by eescalei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,115 +15,60 @@
 void execute(t_pipe *pipex, char *cmd, char **envp)
 {
 	ft_splitt(&pipex->cmd, cmd, ' ');
+	get_cmds(pipex, cmd);
 	if(!pipex->cmd)
 		print_error(pipex, "Error: command not found\n");
-	get_cmds(pipex, cmd);
 	execve(pipex->cmd_path, pipex->cmd, envp);
 }
-void get_cmds(t_pipe *pipex, char *cmd)
-{
-	int i;
-	char *path;
-	char *cmd_path;
-	
-	i = 0;
-	pipex->cmd_path = NULL;
-	while (pipex->path[i] != NULL)
-	{
-		path = ft_strjoin(pipex->path[i], "/");
-		// printf("path: %s\n", path);
-		cmd_path = ft_strjoin(path, pipex->cmd[0]);
-		if(access(cmd_path, X_OK) == 0)
-		{
-			pipex->cmd_path = cmd_path;
-			free(path);
-			return ;
-		}
-		free(path);
-		free(cmd_path);
-		i++;
-	}
-	if(pipex->cmd_path == NULL)
-		print_error(pipex, "Error: command not found\n");
-	
-}
 
-void process_1(t_pipe *pipex, char *cmd, char **envp)
+void process_1(t_pipe *pipex, char *cmd, char **envp, int cmd_count, int fd[cmd_count][2], int i)
 {
-	close(pipex->pipeR[0]);
-	close(pipex->pipeR[1]);
-	close(pipex->pipeW[0]);
+	close(pipex->fdout);
+	manage_pipes(pipex, cmd_count, fd, i);
 	dup2(pipex->fdin, 0);
-	dup2(pipex->pipeW[1], 1);
 	execute(pipex, cmd, envp);
 }
 
-void process_2(t_pipe *pipex, char *cmd, char **envp)
+void	process_2(t_pipe *pipex, char *cmd, char **envp, int cmd_count, int fd[cmd_count][2], int i)
 {
-	close(pipex->pipeW[1]);
-	close(pipex->pipeR[0]);
-	close(pipex->pipeR[1]);
-	dup2(pipex->pipeW[0], 0);
+	close(pipex->fdin);
+	close(pipex->fdout);
+	manage_pipes(pipex, cmd_count, fd, i);
+	execute(pipex, cmd, envp);
+}
+
+void process_3(t_pipe *pipex, char *cmd, char **envp, int cmd_count, int fd[cmd_count][2], int i)
+{
+	close(pipex->fdin);
+	manage_pipes(pipex, cmd_count, fd, i);
 	dup2(pipex->fdout, 1);
 	execute(pipex, cmd, envp);
 }
 
-void process_2b(t_pipe *pipex, char *cmd, char **envp)
-{
-	close(pipex->pipeW[0]);
-	close(pipex->pipeW[1]);
-	close(pipex->pipeR[1]);
-	dup2(pipex->pipeR[0], 0);
-	dup2(pipex->fdout, 1);
-	execute(pipex, cmd, envp);
-}
-
-void	process_3(t_pipe *pipex, char *cmd, char **envp)
-{
-	close(pipex->pipeW[1]);
-	close(pipex->pipeR[0]);
-	close(pipex->fdin);
-	close(pipex->fdout);
-	dup2(pipex->pipeW[0], 0);
-	dup2(pipex->pipeR[1], 1);
-	execute(pipex, cmd, envp);
-}
-
-void	process_4(t_pipe *pipex, char *cmd, char **envp)
-{
-	close(pipex->pipeW[0]);
-	close(pipex->pipeR[1]);
-	close(pipex->fdin);
-	close(pipex->fdout);
-	dup2(pipex->pipeR[0], 0);
-	dup2(pipex->pipeW[1], 1);
-	execute(pipex, cmd, envp);
-}
-
-void	middle_processes(t_pipe *pipex, char **argv, char **envp, int cmd_count)
+void	processes(t_pipe *pipex, char **argv, char **envp, int cmd_count)
 {
 	int i;
+	int fd[cmd_count - 1][2];
 
+	create_pipe(pipex, cmd_count - 1, fd);
+	pipex->pid[0] = fork();
+	if(pipex->pid[0] == -1)
+		print_error(pipex, "Error creating fork\n");
+	if(pipex->pid[0] == 0)
+	{
+		process_1(pipex, argv[2], envp, cmd_count, fd, 0);
+		waitpid(pipex->pid[0], NULL, 0);
+	}
 	i = 1;
-	while(cmd_count > i)
+	while((cmd_count - 1) > i)
 	{
 		pipex->pid[i] = fork();
 		if(pipex->pid[i] == -1)
 			print_error(pipex, "Error creating fork\n");
 		if(pipex->pid[i] == 0)
 		{
-			if((i % 2) == 1)
-			{
-				printf("Inicianting process_3");
-				process_3(pipex, argv[i], envp);
-				waitpid(pipex->pid[i], NULL, 0);
-			}
-			else
-			{
-				printf("Inicianting process_4");
-				process_4(pipex, argv[i], envp);
-				waitpid(pipex->pid[i], NULL, 0);
-			}
+			process_2(pipex, argv[i + 2], envp, cmd_count, fd, i);
+			waitpid(pipex->pid[i], NULL, 0);
 		}
 		i++;
 	}
@@ -132,30 +77,7 @@ void	middle_processes(t_pipe *pipex, char **argv, char **envp, int cmd_count)
 		print_error(pipex, "Error creating fork\n");
 	if(pipex->pid[i] == 0)
 	{
-		if(cmd_count == 1)
-		{
-			printf("Inicianting process_2");
-			process_2(pipex, argv[i], envp);
-		}
-		else
-		{
-			if((cmd_count + 1) % 2 == 0)
-			{
-				printf("Inicianting process_2");
-				process_2(pipex, argv[i], envp);
-			}
-			else
-			{
-				printf("Inicianting process_2b");
-				process_2b(pipex, argv[i], envp);
-			}
-		}
+		process_3(pipex, argv[i + 2], envp, cmd_count, fd, i);
+		waitpid(pipex->pid[i], NULL, 0);
 	}
 }
-
-
-// clean pipe after;
-//		COMO?
-		// unlink pipe onde se vai escrever 
-		// e voltar a recriar pipe
-		// vai ser criado limpo

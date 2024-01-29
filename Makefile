@@ -6,7 +6,7 @@
 #    By: eescalei <eescalei@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/08 07:48:01 by eescalei          #+#    #+#              #
-#    Updated: 2024/01/26 20:44:14 by eescalei         ###   ########.fr        #
+#    Updated: 2024/01/29 19:31:44 by eescalei         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,8 @@ SRC = src/pipex.c \
 SRC_BONUS = src_bonus/pipex.c \
 				src_bonus/processes.c \
 				src_bonus/ft_split.c \
-				src_bonus/free_errors.c
+				src_bonus/free_errors.c \
+				src_bonus/manage_info.c
 
 OBJ = ${SRC:.c=.o}
 OBJ_BONUS = ${SRC_BONUS:.c=.o}

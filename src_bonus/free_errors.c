@@ -6,7 +6,7 @@
 /*   By: eescalei <eescalei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 12:14:18 by eescalei          #+#    #+#             */
-/*   Updated: 2024/01/26 20:40:55 by eescalei         ###   ########.fr       */
+/*   Updated: 2024/01/29 01:17:31 by eescalei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,6 @@ void	close_t(t_pipe *pipex)
 {
 	close(pipex->fdin);
 	close(pipex->fdout);
-	close(pipex->pipeW[0]);
-	close(pipex->pipeW[1]);
-	close(pipex->pipeR[0]);
-	close(pipex->pipeR[1]);
 }
 
 void	free_path(char **path)
