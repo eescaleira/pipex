@@ -6,7 +6,7 @@
 /*   By: eescalei <eescalei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 22:11:31 by eescalei          #+#    #+#             */
-/*   Updated: 2024/01/25 12:32:55 by eescalei         ###   ########.fr       */
+/*   Updated: 2024/02/01 12:32:42 by eescalei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	main(int ac, char **argv, char **envp)
 		print_error(&pipex, "Error creating fork\n");
 	if(pipex.pid2 == 0)
 		process_2(&pipex, argv[3], envp);
-	wait(NULL); // tentar por wait pid 
+	wait(NULL); 
 	free_path(pipex.path);
 	// check retuned errors from execves
 	return 0;

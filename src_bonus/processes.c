@@ -6,7 +6,7 @@
 /*   By: eescalei <eescalei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 00:00:49 by eescalei          #+#    #+#             */
-/*   Updated: 2024/01/29 19:30:30 by eescalei         ###   ########.fr       */
+/*   Updated: 2024/02/01 12:32:21 by eescalei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,9 @@ void	processes(t_pipe *pipex, char **argv, char **envp, int cmd_count)
 	if(pipex->pid[0] == 0)
 	{
 		process_1(pipex, argv[2], envp, cmd_count, fd, 0);
-		waitpid(pipex->pid[0], NULL, 0);
 	}
+	waitpid(pipex->pid[0], NULL, WNOHANG);
+	if(pipex->pid[0] > 0)
 	i = 1;
 	while((cmd_count - 1) > i)
 	{
@@ -68,8 +69,8 @@ void	processes(t_pipe *pipex, char **argv, char **envp, int cmd_count)
 		if(pipex->pid[i] == 0)
 		{
 			process_2(pipex, argv[i + 2], envp, cmd_count, fd, i);
-			waitpid(pipex->pid[i], NULL, 0);
 		}
+		waitpid(pipex->pid[i], NULL, WNOHANG);
 		i++;
 	}
 	pipex->pid[i] = fork();
@@ -78,6 +79,6 @@ void	processes(t_pipe *pipex, char **argv, char **envp, int cmd_count)
 	if(pipex->pid[i] == 0)
 	{
 		process_3(pipex, argv[i + 2], envp, cmd_count, fd, i);
-		waitpid(pipex->pid[i], NULL, 0);
 	}
+	waitpid(-1, NULL, WNOHANG);
 }
