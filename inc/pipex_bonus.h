@@ -6,7 +6,7 @@
 /*   By: eescalei <eescalei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 07:45:18 by eescalei          #+#    #+#             */
-/*   Updated: 2024/01/29 19:14:27 by eescalei         ###   ########.fr       */
+/*   Updated: 2024/02/01 11:52:31 by eescalei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ typedef struct s_pipex
 
 int		main(int ac, char **argv, char **envp);
 
+void	execute(t_pipe *pipex, char *cmd, char **envp);
 
 void	process_1(t_pipe *pipex, char *cmd, char **envp, int cmd_count, int fd[cmd_count][2], int i);
 void	process_2(t_pipe *pipex, char *cmd, char **envp, int cmd_count, int fd[cmd_count][2], int i);
