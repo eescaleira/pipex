@@ -6,7 +6,7 @@
 /*   By: eescalei <eescalei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 22:11:31 by eescalei          #+#    #+#             */
-/*   Updated: 2024/02/03 17:14:51 by eescalei         ###   ########.fr       */
+/*   Updated: 2024/02/03 18:15:11 by eescalei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,11 @@ void	create_descriptors(t_pipe *pipex, char **argv, char **envp, int ac)
 	if (envp == NULL || argv == NULL || ac < 5)
 		exit (1);
 	pipex->fdin = open(argv[1], O_RDWR);
-	if (pipex->fdin < 0)
+	printf("%i" , pipex->fdin);
+	if (pipex->fdin <= 0)
 		exit (2);
 	pipex->fdout = open(argv[ac - 1], O_RDWR | O_CREAT | O_TRUNC, 0644);
-	if (pipex->fdout < 0)
+	if (pipex->fdout <= 0)
 	{
 		close(pipex->fdin);
 		exit (2);
