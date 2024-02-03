@@ -6,23 +6,23 @@
 /*   By: eescalei <eescalei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 18:20:45 by eescalei          #+#    #+#             */
-/*   Updated: 2024/01/26 19:45:43 by eescalei         ###   ########.fr       */
+/*   Updated: 2024/02/03 16:10:28 by eescalei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/pipex_bonus.h"
 
-int ft_substrr(char ***str, char *s, int start, int len, int j)
+int	ft_substrr(char **str, char *s, int start, int len)
 {
 	int	i;
 
 	i = 0;
 	while (i < len)
 	{
-		(*str)[j][i] = s[start + i];
+		(*str)[i] = s[start + i];
 		i++;
 	}
-	(*str)[j][i] = '\0';
+	(*str)[i] = '\0';
 	return (0);
 }
 
@@ -80,15 +80,13 @@ int	ft_splitt(char ***strs, char *s, char c)
 	size = 0;
 	word = ft_count_word(s, c);
 	*strs = (char **)malloc((word + 1) * sizeof(char *));
-	if (!strs)
-		return (1);
 	while (j < word)
 	{
 		while (s[i] == c && s[i])
 			i++;
 		size = ft_size_word(s, c, i);
 		strs[0][j] = (char *)malloc((size + 1) * sizeof(char));
-		ft_substrr(strs, s, i, size, j);
+		ft_substrr(&(strs[0][j]), s, i, size);
 		if (!strs[0][j])
 			ft_free(*strs, j);
 		i += size;

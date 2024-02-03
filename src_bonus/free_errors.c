@@ -6,25 +6,25 @@
 /*   By: eescalei <eescalei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 12:14:18 by eescalei          #+#    #+#             */
-/*   Updated: 2024/02/03 14:27:12 by eescalei         ###   ########.fr       */
+/*   Updated: 2024/02/03 16:25:18 by eescalei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/pipex_bonus.h"
 
-void print_error(t_pipe *pipex, char *str)
+void	print_error(t_pipe *pipex)
 {
-	ft_printf("%s\n", str);
-	if(pipex->path)
+	if (pipex->path)
 		free_path(pipex->path);
 	free(pipex->pid);
-	if(pipex->cmd)
+	if (pipex->cmd)
 		free_path(pipex->cmd);
-	if(pipex->cmd_path)
+	if (pipex->cmd_path)
 		free(pipex->cmd_path);
 	close_t(pipex);
 	exit(5);
 }
+
 void	close_t(t_pipe *pipex)
 {
 	close(pipex->fdin);
@@ -33,7 +33,7 @@ void	close_t(t_pipe *pipex)
 
 void	free_path(char **path)
 {
-	int i; 
+	int	i; 
 
 	i = 0;
 	while (path[i] != NULL)

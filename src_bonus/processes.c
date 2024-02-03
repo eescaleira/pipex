@@ -6,22 +6,22 @@
 /*   By: eescalei <eescalei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 00:00:49 by eescalei          #+#    #+#             */
-/*   Updated: 2024/02/03 15:27:06 by eescalei         ###   ########.fr       */
+/*   Updated: 2024/02/03 17:17:49 by eescalei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/pipex_bonus.h"
 
-void execute(t_pipe *pipex, char *cmd, char **envp)
+void	execute(t_pipe *pipex, char *cmd, char **envp)
 {
 	ft_splitt(&pipex->cmd, cmd, ' ');
 	get_cmds(pipex);
-	if(!pipex->cmd)
+	if (!pipex->cmd)
 		print_error(pipex, "Error: command not found\n");
 	execve(pipex->cmd_path, pipex->cmd, envp);
 }
 
-void process_1(t_pipe *pipex, char *cmd, char **envp, int cmd_count, int fd[cmd_count][2], int i)
+void	process_1(t_pipe *pipex, char *cmd, char **envp, int cmd_count, int fd[cmd_count][2], int i)
 {
 	close(pipex->fdout);
 	manage_pipes(cmd_count, fd, i);
@@ -40,7 +40,7 @@ void	process_2(t_pipe *pipex, char *cmd, char **envp, int cmd_count, int fd[cmd_
 	execute(pipex, cmd, envp);
 }
 
-void process_3(t_pipe *pipex, char *cmd, char **envp, int cmd_count, int fd[cmd_count][2], int i)
+void	process_3(t_pipe *pipex, char *cmd, char **envp, int cmd_count, int fd[cmd_count][2], int i)
 {
 	close(pipex->fdin);
 	manage_pipes(cmd_count, fd, i);
@@ -51,40 +51,32 @@ void process_3(t_pipe *pipex, char *cmd, char **envp, int cmd_count, int fd[cmd_
 
 void	processes(t_pipe *pipex, char **argv, char **envp, int cmd_count)
 {
-	int i;
-	int (*fd)[2];
-	
+	int	i;
+	int	(*fd)[2];
+
 	fd = (int (*)[2])malloc(sizeof(int [2]) * (cmd_count - 1));
-	// fd[cmd_count] = NULL;
 	create_pipe(pipex, cmd_count - 1, fd);
 	pipex->pid[0] = fork();
-	if(pipex->pid[0] == -1)
+	if (pipex->pid[0] == -1)
 		print_error(pipex, "Error creating fork\n");
-	if(pipex->pid[0] == 0)
-	{
+	if (pipex->pid[0] == 0)
 		process_1(pipex, argv[2], envp, cmd_count, fd, 0);
-	}
 	waitpid(pipex->pid[0], NULL, WNOHANG);
-	if(pipex->pid[0] > 0)
 	i = 1;
-	while((cmd_count - 1) > i)
+	while ((cmd_count - 1) > i)
 	{
 		pipex->pid[i] = fork();
-		if(pipex->pid[i] == -1)
+		if (pipex->pid[i] == -1)
 			print_error(pipex, "Error creating fork\n");
-		if(pipex->pid[i] == 0)
-		{
+		if (pipex->pid[i] == 0)
 			process_2(pipex, argv[i + 2], envp, cmd_count, fd, i);
-		}
 		waitpid(pipex->pid[i], NULL, WNOHANG);
 		i++;
 	}
 	pipex->pid[i] = fork();
-	if(pipex->pid[i] == -1)
+	if (pipex->pid[i] == -1)
 		print_error(pipex, "Error creating fork\n");
-	if(pipex->pid[i] == 0)
-	{
+	if (pipex->pid[i] == 0)
 		process_3(pipex, argv[i + 2], envp, cmd_count, fd, i);
-	}
 	waitpid(-1, NULL, WNOHANG);
 }

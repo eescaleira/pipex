@@ -6,7 +6,7 @@
 /*   By: eescalei <eescalei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 07:45:18 by eescalei          #+#    #+#             */
-/*   Updated: 2024/02/03 15:09:55 by eescalei         ###   ########.fr       */
+/*   Updated: 2024/02/03 17:14:20 by eescalei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ typedef struct s_pipex
 	int		fdout;
 	pid_t 	*pid;
 	char	**path;
+	int		cmd_count;
 	char 	**cmd;
 	char	*cmd_path;
 	int		i;
