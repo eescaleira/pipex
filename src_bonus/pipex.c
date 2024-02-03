@@ -6,7 +6,7 @@
 /*   By: eescalei <eescalei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 22:11:31 by eescalei          #+#    #+#             */
-/*   Updated: 2024/01/29 19:31:06 by eescalei         ###   ########.fr       */
+/*   Updated: 2024/02/03 14:26:17 by eescalei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,7 @@
 
 void create_descriptors(t_pipe *pipex, char **argv, char **envp, int ac) 
 {
-	int i;
 		
-	i = 0;
 	if(envp == NULL || argv == NULL || ac < 5)
 		exit (1);
 	pipex->fdin = open(argv[1], O_RDWR);
@@ -31,13 +29,11 @@ void create_descriptors(t_pipe *pipex, char **argv, char **envp, int ac)
 	pipex->pid = malloc((ac - 2) * sizeof(int));
 	if (pipex->pid == NULL)
 	{
-		ft_printf("Error creating pipe\n");
 		close(pipex->fdin);
 		close(pipex->fdout);
 		exit(3);
 	}
 	pipex->pid[ac - 2] = 0;
-	i++;
 }
 
 int	main(int ac, char **argv, char **envp)
