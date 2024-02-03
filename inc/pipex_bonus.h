@@ -6,7 +6,7 @@
 /*   By: eescalei <eescalei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 07:45:18 by eescalei          #+#    #+#             */
-/*   Updated: 2024/02/03 17:14:20 by eescalei         ###   ########.fr       */
+/*   Updated: 2024/02/03 17:28:57 by eescalei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ int		main(int ac, char **argv, char **envp);
 
 void	execute(t_pipe *pipex, char *cmd, char **envp);
 
-void	process_1(t_pipe *pipex, char *cmd, char **envp, int cmd_count, int (*fd)[2], int i);
-void	process_2(t_pipe *pipex, char *cmd, char **envp, int cmd_count, int (*fd)[2], int i);
-void	process_3(t_pipe *pipex, char *cmd, char **envp, int cmd_count, int (*fd)[2], int i);
+void	process_1(t_pipe *pipex, char *cmd, char **envp, int (*fd)[2]);
+void	process_2(t_pipe *pipex, char *cmd, char **envp, int (*fd)[2]);
+void	process_3(t_pipe *pipex, char *cmd, char **envp, int (*fd)[2]);
 void	processes(t_pipe *pipex, char **argv, char **envp, int cmd_count);
 
 void	create_descriptors(t_pipe *pipex, char **argv, char **envp, int ac) ;
