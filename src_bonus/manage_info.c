@@ -6,7 +6,7 @@
 /*   By: eescalei <eescalei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 19:29:08 by eescalei          #+#    #+#             */
-/*   Updated: 2024/02/03 17:19:44 by eescalei         ###   ########.fr       */
+/*   Updated: 2024/02/04 16:34:05 by eescalei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	manage_pipes(int cmd_count, int (*fd)[2], int i)
 	int	j;
 
 	j = 0;
-	while (j < cmd_count)
+	while (j <  (cmd_count - 1))
 	{
 		if (j != i)
 		{
@@ -92,5 +92,5 @@ void	get_path(t_pipe *pipex, char **envp)
 		i++;
 	}
 	if (pipex->path == NULL)
-		print_error(pipex, "Error getting path\n");
+		print_error(pipex);
 }
